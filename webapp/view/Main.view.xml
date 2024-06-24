@@ -1,0 +1,121 @@
+<mvc:View 
+    controllerName="sync.ea.qfruqr.controller.Main"
+    xmlns:l="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    height="100%">
+    <l:ResponsiveSplitter defaultPane="default">
+        <l:PaneContainer resize=".onRootContainerResize">
+            <l:SplitPane requiredParentWidth="400" id="default">
+                <l:layoutData>
+                    <l:SplitterLayoutData size="{sizes>/pane1}" />
+                </l:layoutData>
+                <Panel headerText="생산실적 조회" height="100%">
+                    <VBox>
+                        <Toolbar>
+                            <ToolbarSpacer/> <!-- 우측 정렬을 위한 공간 -->
+                            
+                            <Button text="Filter" press="onFilter" class="customButtonGreen"/>
+                            <Button text="Clear" press="onClearFilters" class="customButtonRed"/>                            
+                        </Toolbar>
+                        <Toolbar>
+                            <Label text="생산일자:" />
+                            <DatePicker id="tsdatFilter" width="150px" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd"/>
+                            <Label text="생산번호:" />
+                            <Input id="aufnrFilter" width="100px"/>
+                            <Label text="배치번호:" />
+                            <Input id="chargFilter" width="100px"/>
+                        </Toolbar>
+                    </VBox>
+                    <!-- 테이블 -->
+                    <Table id="dataTable" items="{/ZEA_PPCDSV03}" mode="SingleSelectLeft" selectionChange="onTableRowSelectionChange">
+                        <columns>
+                            <Column>
+                                <Text text="생산번호" />
+                            </Column>
+                            <Column>
+                                <Text text="배치번호" />
+                            </Column>
+                            <Column>
+                                <Text text="자재코드" />
+                            </Column>
+                            <Column>
+                                <Text text="자재명" />
+                            </Column>
+                            <Column>
+                                <Text text="검수일자" />
+                            </Column>
+                            <Column>
+                                <Text text="생산량 (단위)" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Active">
+                                <cells>
+                                    <Text text="{Aufnr}" />
+                                    <Text text="{Charg}" />
+                                    <Text text="{Matnr}" />
+                                    <Text text="{Maktx}" />
+                                    <Text text="{ path: 'Tsdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" />
+                                    <ObjectNumber number="{Fnpd}" unit="{Meins}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </Panel>
+            </l:SplitPane>
+            <l:PaneContainer orientation="Vertical" resize=".onInnerContainerResize">
+                <l:SplitPane requiredParentWidth="600">
+                    <l:layoutData>
+                        <l:SplitterLayoutData size="{sizes>/pane2}" />
+                    </l:layoutData>
+                   <Panel headerText="배치번호 QR 생성">
+                        <VBox class="verticalLayoutWithBackground6">
+                            <HBox>
+                                <!-- <Button text="QR 코드 생성하기" press="onGenerateQRCode" class="customButtonGreen TOPSUBBUTTON"/> -->
+                                <Text text="QR 코드 생성"  class="TOPSUBTEXT font-face2 overlay-text2"/>
+                            </HBox>
+                            
+                        </VBox>
+                        <VBox>
+                            <Text text="" />
+                        </VBox>
+                        <VBox>
+                            <Input id="input1" placeholder="생산번호" />
+                            <Input id="input2" placeholder="배치번호" />
+                            <Input id="input3" placeholder="자재코드" />
+                            <Input id="input4" placeholder="자재명" />
+                            <Input id="input5" placeholder="검수일자" />
+                            <Input id="input6" placeholder="생산량(단위)" />
+                        </VBox>
+                        <HBox justifyContent="End">
+                            <Button text="QR 코드 생성하기" press="onGenerateQRCode" class="customButtonGreen"/>
+                        </HBox>
+                </Panel>
+                </l:SplitPane>
+                <l:SplitPane requiredParentWidth="800">
+                    <Page title="QR 확인">
+                        <HBox alignItems="Center" justifyContent="Center" class="qrContainer">
+                            <VBox id="qrContainer" class="qrBox">
+                                <Image id="qrCodeImage" width="200px" height="200px"/>
+                            </VBox>
+                            <VBox class="inputContainer">
+                                <Input id="inputDate" placeholder="생성 날짜" />
+                                <Input id="inputBatch" placeholder="적용된 배치번호" />
+                            </VBox>
+                        </HBox>
+                        <footer>
+                            <OverflowToolbar id="otb3">
+                                <Label text="Buttons:" />
+                                <ToolbarSpacer />
+                                <Button text="저장하기" type="Transparent" class="customButtonGreen" press="onSaveQRCode"/>
+                                <Button text="인쇄하기" type="Transparent" class="customButtonGreen" press="onPrintQRCode"/>
+                            </OverflowToolbar>
+                        </footer>
+                    </Page>
+                </l:SplitPane>
+            </l:PaneContainer>
+        </l:PaneContainer>
+    </l:ResponsiveSplitter>
+</mvc:View>
