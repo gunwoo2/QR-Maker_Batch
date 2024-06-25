@@ -1,4 +1,4 @@
-# QR-Maker_Batch
+# QR-Maker_Batch [![Youtube](https://img.shields.io/badge/Youtube-ff0000?style=flat&logo=youtube)](https://youtu.be/kTrVcEZgdOM?si=_cRmEfF53j4y4sk9)
 Batch 기반의 자동화된 QR 생성기
 
 ## Application Details
